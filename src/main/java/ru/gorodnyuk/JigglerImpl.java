@@ -13,6 +13,7 @@ public class JigglerImpl implements Jiggler {
 
     private static final int ORIGIN = 1;
     private static final int INCLUSIVE_BOUND = 10 + 1;
+    private static final int SHUFFLE_TIMEOUT = 100;
 
     private final Robot robot;
     private final Random xRandom;
@@ -37,19 +38,22 @@ public class JigglerImpl implements Jiggler {
                 throw new RuntimeException(e);
             }
             PointerInfo pointerInfo = MouseInfo.getPointerInfo();
-            Point point = pointerInfo.getLocation();
-            double mouseXCoordinate = point.getX();
-            double mouseYCoordinate = point.getY();
-
-            System.out.println("x = " + mouseXCoordinate);
-            System.out.println("y = " + mouseYCoordinate);
-            System.out.println("new x = " + (mouseXCoordinate + xRandom.nextInt(ORIGIN, INCLUSIVE_BOUND)));
-            System.out.println("new y = " + (mouseYCoordinate + yRandom.nextInt(ORIGIN, INCLUSIVE_BOUND)));
-
-            robot.mouseMove(
-                    (int) mouseXCoordinate + xRandom.nextInt(ORIGIN, INCLUSIVE_BOUND),
-                    (int) mouseYCoordinate + yRandom.nextInt(ORIGIN, INCLUSIVE_BOUND)
-            );
+            shuffle(pointerInfo.getLocation());
         }
+    }
+
+    private void shuffle(Point mouseCoordinates) {
+        double mouseXCoordinate = mouseCoordinates.getX();
+        double mouseYCoordinate = mouseCoordinates.getY();
+        double newMouseXCoordinate = mouseXCoordinate + xRandom.nextInt(ORIGIN, INCLUSIVE_BOUND);
+        double newMouseYCoordinate = mouseYCoordinate + yRandom.nextInt(ORIGIN, INCLUSIVE_BOUND);
+
+        robot.mouseMove((int) newMouseXCoordinate, (int) newMouseYCoordinate);
+        try {
+            TimeUnit.MILLISECONDS.sleep(SHUFFLE_TIMEOUT);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        robot.mouseMove((int) mouseXCoordinate, (int) mouseYCoordinate); // возврат на исходную позицию
     }
 }
