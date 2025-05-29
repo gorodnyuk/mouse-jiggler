@@ -1,4 +1,7 @@
-package ru.gorodnyuk;
+package ru.gorodnyuk.jiggler;
+
+import ru.gorodnyuk.jiggler.worker.Jiggler;
+import ru.gorodnyuk.jiggler.worker.JigglerImpl;
 
 public class Main {
 

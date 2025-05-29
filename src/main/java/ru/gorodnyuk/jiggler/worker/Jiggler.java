@@ -1,4 +1,4 @@
-package ru.gorodnyuk;
+package ru.gorodnyuk.jiggler.worker;
 
 public interface Jiggler {
 
