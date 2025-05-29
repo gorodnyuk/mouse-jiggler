@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Mouse jigger is working...");
 
-        Jiggler jiggler = new JigglerImpl();
+        Jiggler jiggler = new JigglerImpl(5);
 
-        jiggler.jiggle(5);
+        jiggler.jiggle();
     }
 }
