@@ -1,11 +1,7 @@
 package ru.gorodnyuk.jiggler.utils;
 
 /**
- * Ключи для коммандной строки
- * Примеры передачи аргументов в программу при ее запуске:
- * <p>
- * java -jar mouse-jiggler-0.5.jar --delay=10
- * java -jar mouse-jiggler-0.5.jar -d=20
+ * Ключи для командной строки
  */
 public class CLIKeys {
 
