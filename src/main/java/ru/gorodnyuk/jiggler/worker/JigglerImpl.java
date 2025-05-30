@@ -17,14 +17,11 @@ public class JigglerImpl implements Jiggler {
     private static final int INCLUSIVE_BOUND = 10 + 1;
     private static final int SHUFFLE_TIMEOUT = 100;
 
-    private final int delay;
-
     private final Robot robot;
     private final Random xRandom;
     private final Random yRandom;
 
-    public JigglerImpl(Integer delay) {
-        this.delay = Objects.requireNonNullElse(delay, DEFAULT_DELAY);
+    public JigglerImpl() {
         try {
             this.robot = new Robot();
         } catch (AWTException e) {
@@ -35,7 +32,8 @@ public class JigglerImpl implements Jiggler {
     }
 
     @Override
-    public void jiggle() {
+    public void jiggle(Integer delay) {
+        delay = Objects.requireNonNullElse(delay, DEFAULT_DELAY);
         while (true) {
             try {
                 TimeUnit.SECONDS.sleep(delay);
@@ -53,12 +51,16 @@ public class JigglerImpl implements Jiggler {
         double newMouseXCoordinate = mouseXCoordinate + xRandom.nextInt(ORIGIN, INCLUSIVE_BOUND);
         double newMouseYCoordinate = mouseYCoordinate + yRandom.nextInt(ORIGIN, INCLUSIVE_BOUND);
 
-        robot.mouseMove((int) newMouseXCoordinate, (int) newMouseYCoordinate);
+        mouseMove((int) newMouseXCoordinate, (int) newMouseYCoordinate);
         try {
             TimeUnit.MILLISECONDS.sleep(SHUFFLE_TIMEOUT);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        robot.mouseMove((int) mouseXCoordinate, (int) mouseYCoordinate); // возврат на исходную позицию
+        mouseMove((int) mouseXCoordinate, (int) mouseYCoordinate); // возврат на исходную позицию
+    }
+
+    private void mouseMove(int x, int y) {
+        robot.mouseMove(x, y);
     }
 }

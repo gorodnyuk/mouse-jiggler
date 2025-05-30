@@ -6,13 +6,13 @@ import ru.gorodnyuk.jiggler.worker.JigglerImpl;
 
 public class Main {
 
-    public static void main(String[] args) { // примеры аргументов(в секундах) -d=10 или --delay=10
+    public static void main(String[] args) {
         System.out.println("Mouse jiggler is working...");
 
         Integer delay = getDelayFromArguments(args);
 
-        Jiggler jiggler = new JigglerImpl(delay);
-        jiggler.jiggle();
+        Jiggler jiggler = new JigglerImpl();
+        jiggler.jiggle(delay);
     }
 
     private static Integer getDelayFromArguments(String[] args) {

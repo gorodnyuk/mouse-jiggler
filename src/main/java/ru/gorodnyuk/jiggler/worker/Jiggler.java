@@ -8,5 +8,5 @@ public interface Jiggler {
     /**
      * Потрясти мышкой и вернуть ее в исходное состояние
      */
-    void jiggle();
+    void jiggle(Integer delay);
 }
