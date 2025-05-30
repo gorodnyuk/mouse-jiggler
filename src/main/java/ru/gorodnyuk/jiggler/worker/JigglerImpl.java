@@ -40,6 +40,7 @@ public class JigglerImpl implements Jiggler {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
             PointerInfo pointerInfo = MouseInfo.getPointerInfo();
             shuffle(pointerInfo.getLocation());
         }
