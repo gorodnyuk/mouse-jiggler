@@ -9,7 +9,12 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Mouse jiggler is working...");
 
-        Integer delay = getDelayFromArguments(args);
+        Integer delay;
+        try {
+            delay = getDelayFromArguments(args);
+        } catch (NumberFormatException e) {
+            delay = 60; // 1 минута
+        }
 
         Jiggler jiggler = new JigglerImpl();
         jiggler.jiggle(delay);
